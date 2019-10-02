@@ -10,5 +10,7 @@ before_install:
     - conda activate test
     - conda install -y pycodestyle
     - conda install --yes python=3.6
-      
+
 script:
+  - pycodestyle data_viz.py
+  - 
