@@ -47,6 +47,23 @@ def linear_search(key, D):
     return -1
 
 
+def binary_search(key, D):
+    lo = -1
+    hi = len(D)
+    while (hi - lo > 1):
+        mid = (hi + lo) // 2
+
+        if key == D[mid][0]:
+            return D[mid][1]
+
+        if (key < D[mid][0]):
+            hi = mid
+        else:
+            lo = mid
+
+    return -1
+
+
 def main():
     args = initialize()
     gene_name = args.gene
@@ -109,7 +126,12 @@ def main():
             continue
 
         if data_header is None:
-            data_header = l.rstrip().split('\t')
+            data_header = []
+            i = 0
+            for field in l.rstrip().split('\t'):
+                data_header.append([field, i])
+                i += 1
+            data_header.sort(key=lambda tup: tup[0])
             continue
 
         A = l.rstrip().split('\t')
@@ -117,7 +139,7 @@ def main():
         if A[gene_name_col] == gene_name:
             for group_idx in range(len(groups)):
                 for member in members[group_idx]:
-                    member_idx = linear_search(member, data_header)
+                    member_idx = binary_search(member, data_header)
                     if member_idx != -1:
                         group_counts[group_idx].append(int(A[member_idx]))
             break
