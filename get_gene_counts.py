@@ -37,8 +37,9 @@ def pull_gene_reads(gene_counts_file, gene):
 
 def main():
     args = initialize()
-    gene_counts = pull_gene_reads(args.gene_counts_file, args.gene)
-    print(gene_counts)
+    df = pull_gene_reads(args.gene_counts_file, args.gene)
+    print(df)
+    df.to_csv(args.output_file)
 
 
 if __name__ == '__main__':
